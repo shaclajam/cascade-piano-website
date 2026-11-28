@@ -147,3 +147,9 @@ footer a:hover{color:var(--ink)}
   .frame .chrome{display:none}
 }
 @media (prefers-reduced-motion:reduce){.rain{display:none}html{scroll-behavior:auto}.btn{transition:none}}
+
+/* launch sale */
+.price s{display:inline-block}
+.sale-tag{display:inline-block;align-self:flex-start;margin:6px 0 2px;padding:3px 10px;border-radius:999px;background:rgba(255,209,102,.15);color:#ffd166;font-size:13px;font-weight:600}
+.sale-note{color:#ffd166}
+.cta-note a{color:inherit;text-decoration:underline}
