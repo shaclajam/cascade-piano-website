@@ -153,3 +153,18 @@ footer a:hover{color:var(--ink)}
 .sale-tag{display:inline-block;align-self:flex-start;margin:6px 0 2px;padding:3px 10px;border-radius:999px;background:rgba(255,209,102,.15);color:#ffd166;font-size:13px;font-weight:600}
 .sale-note{color:#ffd166}
 .cta-note a{color:inherit;text-decoration:underline}
+
+/* screenshots: full size on click */
+.views img{cursor:zoom-in;transition:transform .2s,border-color .2s}
+.views img:hover,.views img:focus-visible{transform:translateY(-2px);border-color:rgba(79,195,255,.6);outline:none}
+.zoom{border:0;padding:0;background:transparent;max-width:100vw;max-height:100vh;width:100vw;height:100vh;color:var(--ink)}
+.zoom::backdrop{background:rgba(4,8,16,.97)}
+.zoom[open]{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.zoom img{max-width:94vw;max-height:84vh;border-radius:12px;border:1px solid var(--line);cursor:zoom-out;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.zoom-cap{margin-top:14px;font-size:15px;color:var(--muted);text-align:center;max-width:90vw}
+.zoom-btn{position:fixed;border:1px solid var(--line);background:rgba(20,28,46,.85);color:var(--ink);width:46px;height:46px;border-radius:50%;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.zoom-btn:hover{border-color:rgba(79,195,255,.6)}
+.zoom-close{top:20px;right:20px;font-size:18px}
+.zoom-prev{left:20px;top:50%;transform:translateY(-50%)}
+.zoom-next{right:20px;top:50%;transform:translateY(-50%)}
+@media (max-width:700px){.zoom-prev,.zoom-next{top:auto;bottom:20px;transform:none}}

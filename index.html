@@ -270,6 +270,14 @@
   </div>
 </footer>
 
+<dialog class="zoom" id="zoom" aria-label="Screenshot">
+  <img id="zoomImg" alt="">
+  <p class="zoom-cap" id="zoomCap"></p>
+  <button class="zoom-btn zoom-close" id="zoomClose" aria-label="Close">✕</button>
+  <button class="zoom-btn zoom-prev" id="zoomPrev" aria-label="Previous screenshot">‹</button>
+  <button class="zoom-btn zoom-next" id="zoomNext" aria-label="Next screenshot">›</button>
+</dialog>
+
 <script>
 /* ===== Settings you may want to change ===== */
 // Polar checkout link for the Buy buttons (paste it between the quotes). Leave empty to scroll to Pricing instead.
@@ -296,6 +304,33 @@ if (Date.now() >= new Date(SALE_ENDS + 'T23:59:59').getTime()) {
   for (const el of document.querySelectorAll('.js-sale-end')) el.textContent = end;
   for (const el of document.querySelectorAll('.js-price')) el.textContent = SALE_PRICE;
 }
+
+/* Screenshots: click one to see it full size (arrow keys or the side buttons for the others, Esc to close) */
+(() => {
+  const shots = [...document.querySelectorAll('.views img')];
+  const dlg = document.getElementById('zoom'), img = document.getElementById('zoomImg'), cap = document.getElementById('zoomCap');
+  if (!shots.length || !dlg.showModal) return;
+  let at = 0;
+  const show = i => {
+    at = (i + shots.length) % shots.length;
+    const s = shots[at];
+    img.src = s.getAttribute('src').replace('-small.', '.');      // the full-size picture
+    img.alt = s.alt;
+    const fc = s.closest('figure') && s.closest('figure').querySelector('figcaption');
+    cap.textContent = fc ? fc.textContent : '';
+  };
+  shots.forEach((s, i) => {
+    s.tabIndex = 0; s.setAttribute('role', 'button'); s.title = 'Click to see it full size';
+    const open = () => { show(i); dlg.showModal(); };
+    s.addEventListener('click', open);
+    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  document.getElementById('zoomClose').addEventListener('click', () => dlg.close());
+  document.getElementById('zoomPrev').addEventListener('click', () => show(at - 1));
+  document.getElementById('zoomNext').addEventListener('click', () => show(at + 1));
+  dlg.addEventListener('click', e => { if (e.target === dlg || e.target === img) dlg.close(); });   // click the picture or around it
+  dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(at - 1); if (e.key === 'ArrowRight') show(at + 1); });
+})();
 
 /* Falling lights behind the headline */
 (() => {
